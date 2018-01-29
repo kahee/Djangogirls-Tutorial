@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 우리가 새로 만든 'blog'패키지
+    # Django 의 application 으로 동작하도록 등록
+    'blog',
 ]
 
 MIDDLEWARE = [
