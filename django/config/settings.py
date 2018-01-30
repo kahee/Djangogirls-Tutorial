@@ -56,7 +56,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # Django에서 펨플릿을 검색할 경로 목록
+        # Django에서 플릿을 검색할 경로 목록
         'DIRS': [
             TEMPLATES_DIR,
         ],

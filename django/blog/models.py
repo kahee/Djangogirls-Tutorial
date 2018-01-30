@@ -22,7 +22,7 @@ class Post(models.Model):
     )
 
     def publish(self):
-        self.published_date = timezone.new()
+        self.published_date = timezone.now()
         # 데이터베이스에 기록을 하는 것 save()
         self.save()
 

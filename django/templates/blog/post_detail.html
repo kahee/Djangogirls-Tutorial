@@ -10,17 +10,18 @@
 <body>
 <div>
     <h1><a href="">Django Girls Blog</a></h1>
+    <!--구문을 만들때만 사용하는 것-->
 </div>
-
 
 {% for post in posts %}
 <div>
 
     <p>{{ post.published_date }}</p>
     <h2><a href="">{{ post.title }}</a></h2>
-    <p>{{ post.content |linebreaksbr }}</p>
+    <p>{{ post.text }}</p>
 </div>
     {% endfor %}
+
 <div>
     <p>published: 14.06.2014, 12:14</p>
     <h2><a href="">My second post</a></h2>

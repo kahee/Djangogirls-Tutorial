@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-
+from .models import Post
 
 # Create your views here.
 
@@ -19,5 +19,23 @@ def post_list(request):
     # HTTP 프로토콜로 텍스트 데이터 응답
     # return HttpResponse('<html>~')
 
+    posts = Post.objects.all()
+    context = {
+        'posts': posts
+    }
+
+    return render(request,'blog/post_list.html',context)
     # 'blog/post_list.html'템플릿 파일을 이용해 http 프로토콜로 응답
-   return render(request, 'blog/post_list.html')
+
+
+def post_detail(request):
+    """
+    localhost:8000 /detail/로 온 요청을
+    'blog/post_detail.html'을 render 한 결과를 리턴
+
+    :param request:
+    :return:
+    """
+
+    return render(request, 'blog/post_detail.html')
+
