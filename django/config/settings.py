@@ -16,6 +16,18 @@ import os
 # 'django'폴더 의미
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
+# 'django/static'폴더
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+# Django에서 정적파일을 검색할 경로 목록
+STATICFILES_DIRS = [
+    STATIC_DIR,
+]
+# 만약 요청이 URL이 /static/으로 시작할 경우,
+# STATICFILES_DIRS 에 정의된 경로 목록에서
+# /static/<path>/<-<path>부분에 정의된 경로에 해당하는 파일을 찾아 돌려준다.
+# URL주소는 변경이 가능하다
+
+STATIC_URL = '/static/'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
@@ -119,4 +131,4 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_URL = '/static/'
+
