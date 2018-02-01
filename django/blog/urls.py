@@ -14,9 +14,14 @@ urlpatterns = [
     # url()함수를 쓰고 싶다면 re_path()로 사용
     # re_path(r'(?P<pk>\d+)/$', views.post_detail),
 
+    # /3/
     path('<int:pk>/', views.post_detail, name='post-detail'),
 
+    # /3/delete
+    path('<int:pk>/delete/', views.post_delete, name='post-delete'),
+
     # localhost:8000/add 에 접근
-    path('add/', views.post_add, name='post-add')
+    path('add/', views.post_add, name='post-add'),
+
 
 ]

@@ -1,6 +1,7 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Post
+
 
 # Create your views here.
 
@@ -24,7 +25,7 @@ def post_list(request):
         'posts': posts
     }
 
-    return render(request,'blog/post_list.html',context)
+    return render(request, 'blog/post_list.html', context)
     # 'blog/post_list.html'템플릿 파일을 이용해 http 프로토콜로 응답
 
 
@@ -41,8 +42,35 @@ def post_detail(request, pk):
     context = {
         'post': Post.objects.get(pk=pk),
     }
-    return render(request, 'blog/post_detail.html',context)
+    return render(request, 'blog/post_detail.html', context)
+
 
 def post_add(request):
-    # localhost:8000/add 접근시 뷰 실
-    return render(request, 'blog/post_add.html',{})
+    # localhost:8000/add 접근시 뷰
+    if request.method == 'POST':
+        # 요청의 method가 POST일때
+        # 데이터에 추가 및 삭제
+        # HttpResponse로 POST요청에 담겨온
+        # title과 content를 합친 문자열 데이터를 보여줌
+        title = request.POST['title']
+        content = request.POST['content']
+        # ORM 을 사용해서 title과 content에 해당하는 Post생성
+        post = Post.objects.create(
+            author=request.user,
+            title=title,
+            content=content,
+        )
+        # post-detail이라는 url name을 가진 뷰로 리다이렉션 요청 보냄
+        # 이때, post-detail url name으로 특정 url 을 만드려면
+        # pk 값이 필요하므로 키워드 인수로 해당 값을 넘겨준다.
+        return redirect('post-detail', pk=post.pk)
+    else:
+        # 요청의 Method가 GET일때
+        # 데이터를 보여주면됨
+        return redirect(request, 'blog/post_add.html', {})
+
+
+def post_delete(request, pk):
+    post = Post.objects.get(pk=pk)
+    post.delete()
+    return redirect('post-list')
