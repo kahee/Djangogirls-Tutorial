@@ -23,5 +23,5 @@ urlpatterns = [
     # localhost:8000/add 에 접근
     path('add/', views.post_add, name='post-add'),
 
-
+    path('<int:pk>/edit/', views.post_edit, name='post-edit')
 ]

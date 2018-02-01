@@ -19,7 +19,7 @@ def post_list(request):
 
     # HTTP 프로토콜로 텍스트 데이터 응답
     # return HttpResponse('<html>~')
-
+    # django model order recently created
     posts = Post.objects.all()
     context = {
         'posts': posts
@@ -27,6 +27,7 @@ def post_list(request):
 
     return render(request, 'blog/post_list.html', context)
     # 'blog/post_list.html'템플릿 파일을 이용해 http 프로토콜로 응답
+
 
 
 def post_detail(request, pk):
@@ -43,6 +44,44 @@ def post_detail(request, pk):
         'post': Post.objects.get(pk=pk),
     }
     return render(request, 'blog/post_detail.html', context)
+
+def post_edit(request,pk):
+    """
+    pk에 해당하는 Post인스턴스를
+    context라는 dict에 'post'키에 할당
+    위에서 생성한 dict는 render의 context에 전달
+    사용하는 템플릿은 'blog/post_add.html'을 재사용
+    url은 /3/edit/ urls.py 작성
+
+    :param requset:
+    :param px:
+    :return:
+    """
+    """
+    request.method가 post일때는 requset.POST에 있는 데이터를 이용해서,pk에 해당하는 post인스
+    턴스의 값을 수정, 이후 post-detail로 redirect
+    """
+
+    post = Post.objects.get(pk=pk)
+    if request.method == 'POST':
+        post.title = request.POST['title']
+        post.content = request.POST['content']
+        post.save()
+        return redirect('post-detail',pk=post.pk)
+
+    else:
+        post = Post.objects.get(pk=pk)
+        context = {
+            'post': post,
+        }
+        return render(
+            request,
+            'blog/post_edit.html',
+            context
+        )
+
+
+
 
 
 def post_add(request):
