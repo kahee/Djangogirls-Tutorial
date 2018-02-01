@@ -43,3 +43,6 @@ def post_detail(request, pk):
     }
     return render(request, 'blog/post_detail.html',context)
 
+def post_add(request):
+    # localhost:8000/add 접근시 뷰 실
+    return render(request, 'blog/post_add.html',{})
