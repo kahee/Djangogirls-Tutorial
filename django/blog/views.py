@@ -76,7 +76,7 @@ def post_edit(request,pk):
         }
         return render(
             request,
-            'blog/post_edit.html',
+            'blog/post_add_edit.html',
             context
         )
 
@@ -106,7 +106,7 @@ def post_add(request):
     else:
         # 요청의 Method가 GET일때
         # 데이터를 보여주면됨
-        return render(request, 'blog/post_add.html')
+        return render(request, 'blog/post_add_edit.html')
 
 
 def post_delete(request, pk):
