@@ -67,10 +67,30 @@ def post_add(request):
     else:
         # 요청의 Method가 GET일때
         # 데이터를 보여주면됨
-        return redirect(request, 'blog/post_add.html', {})
+        return render(request, 'blog/post_add.html')
 
 
 def post_delete(request, pk):
+    """
+    post_detail의 구조를 참조해서
+    pk에 해당하는 post를 삭제하는 view를 구현하고 url과 연결
+    pk가 3이면 url은 "/3/delete/"
+    이 view는 POST메서드에 대해서만 처리한다 (request.method == 'POST')
+    (HTML 템플릿을 사용하지 않음)
+    삭제코드
+        post = Post.objects.get(pk=pk)
+        post.delete()
+    삭제 후에는 post-list로 redirect (post_add()를 참조)
+    1. post_delete() view함수의 동작을 구현
+    2. post_delete view와 연결될 urls를 blog/urls.py에 구현
+    3. post_delete로 연결될 URL을 post_detail.html의 form에 작성
+        csrf_token사용!
+        action의 위치가 요청을 보낼 URL임
+    """
+    # pk에 해당하는 Post를 삭제
     post = Post.objects.get(pk=pk)
-    post.delete()
-    return redirect('post-list')
+    if request.user == post.author:
+        post.delete()
+        # 이후 post-list라는 URL name을 갖는 view로 redirect
+        return redirect('post-list')
+    return redirect('post-detail', pk=post.pk)
