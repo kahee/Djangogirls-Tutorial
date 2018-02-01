@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # 새로운 blog urls 추가하려면 이렇게 해야함
     path('', include('blog.urls'))
+
 ]
